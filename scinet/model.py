@@ -14,8 +14,8 @@
 
 import numpy as np
 import tensorflow as tf
-import cPickle as pickle
-import io
+import _pickle as pickle
+import scinet.io_nn as io
 from tqdm import tqdm_notebook
 
 
@@ -133,7 +133,7 @@ class Network(object):
                       'name': self.name}
             with open(io.tf_save_path + file_name + '.pkl', 'wb') as f:
                 pickle.dump(params, f)
-            print "Saved network to file " + file_name
+            print("Saved network to file " + file_name)
 
     @classmethod
     def from_saved(cls, file_name, change_params={}):
@@ -146,7 +146,7 @@ class Network(object):
         params['load_file'] = file_name
         for p in change_params:
             params[p] = change_params[p]
-        print params
+        print(params)
         return cls(**params)
 
     #########################################
@@ -280,7 +280,7 @@ class Network(object):
         with self.graph.as_default():
             saver = tf.train.Saver()
             saver.restore(self.session, io.tf_save_path + file_name + '.ckpt')
-            print "Loaded network from file " + file_name
+            print("Loaded network from file " + file_name)
 
 
 ###########
